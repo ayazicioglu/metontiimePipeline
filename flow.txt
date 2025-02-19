@@ -49,3 +49,10 @@ qiime taxa barplot \
   --i-taxonomy merged_taxonomy.qza \
   --m-metadata-file merged_metadata.tsv \
   --o-visualization taxa-bar-plots-no-Unassigned.qzv
+
+15. Calisma bittikten sonra results klasorunde yer alan datalari temizlemek icin; sifre girmen gerekecek
+sudo rm -rf /media/maciek/sdb/MetONTIIME/results/run_*/*
+sudo rm -rf /media/maciek/sdb/MetONTIIME/results/run_*
+
+nextflow/log dosyalari da ise yaramayacak, silmek icin
+sudo rm -f /media/maciek/sdb/MetONTIIME/.nextflow.log*
