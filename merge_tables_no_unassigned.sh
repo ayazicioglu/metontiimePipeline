@@ -1,6 +1,6 @@
-#!/bin/bash
+﻿#!/bin/bash
 
-# Ana dizin (tırnak işaretleriyle)
+# Ana dizin (tırnak işaretleriyle )
 BASE_DIR="/media/maciek/USB DISK/Barcoding Results"
 
 # Tüm yolları bir diziye kaydet
