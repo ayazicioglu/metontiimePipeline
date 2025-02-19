@@ -1,0 +1,51 @@
+﻿
+Linux PC`de:
+1. Ctrl+Alt+T ile terminali ac
+
+2. Dogru dizine gec cd /media/maciek/sdb/MetONTIIME
+
+3. qiime2 yi aktif et conda activate qiime2-2023.5
+
+4. Analiz edilecek fastq.gz dosyasini manuel olarak MetONTIIME klasoru icinde yer alan fasq.gz klasorune kopyala.
+
+5. metadata klasorunun bos oldugundan emin ol.
+
+6. Pipeline`i nextflow -c metontiime2.conf run metontiime2.nf -profile docker komutu ile calistir.
+
+7. Analiz tamamlandikca run dosyasini, metadata icinde olusan veriyi ve terminal goruntusunu ss al sakla. Her turn de metadata klasoru bosaltilacak ve fastq.gz`ye yeni numune alinacak.
+
+8. Analiz bittiginde farkli run`larla tamamlanmis dosyalarin birlestirilmesi ve taxa-bar-plots`un olusturulmasi gerekecek. Bunun icin ihtiyac duydugumuz seyler:
+
+taxa-bar-plots.qzv için:
+    1. Birleştirilmiş table.qza (derepSeq klasöründen)
+    2. taxonomy.qza (assignTaxonomy klasöründen)
+    3. metadata.tsv
+taxa-bar-plots-no-Unassigned.qzv için:
+    1. Birleştirilmiş table-no-Unassigned.qza (derepSeq klasöründen)
+    2. taxonomy.qza (assignTaxonomy klasöründen)
+    3. metadata.tsv
+       
+9. metadata.tsv`yi olusturmak icin bash merge_metadata.sh komutunu kullan. 
+
+10.taxanomy.qza`yi olusturmak icin bash merge_taxonomy.sh komutunu kullan. 
+
+11.Birleştirilmiş merged_table.qza`yi olusturmak icin bash merge_tables.sh komutunu kullan.
+
+12.Birleştirilmiş table-no-Unassigned.qza`yi olusturmak icin bash merge_tables_no_unassigned.sh komutunu kullan.
+
+Bu komutlarin dosyalari nereden alacagi ve nereye kaydedecegi ile ilgili GitHub reponu incele. IPUCU: USB DISK
+
+13. Dogru dizinde degilsen: cd /media/maciek/USB DISK/merged_tables. Bununla gec ve includes_Unassigned taxa-bar-plot icin asagidaki komutu calistir
+
+qiime taxa barplot \
+  --i-table merged_table.qza \
+  --i-taxonomy merged_taxonomy.qza \
+  --m-metadata-file merged_metadata.tsv \
+  --o-visualization taxa-bar-plots.qzv
+14. Benzer islemi Unassigned icinde yap. cd /media/maciek/USB DISK/merged_tables
+
+qiime taxa barplot \
+  --i-table merged_table-no-Unassigned.qza \
+  --i-taxonomy merged_taxonomy.qza \
+  --m-metadata-file merged_metadata.tsv \
+  --o-visualization taxa-bar-plots-no-Unassigned.qzv
